@@ -4,7 +4,7 @@
   "description": "RethinkDB TokenStore for Passwordless",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --bail test/*.js"
+    "test": "./node_modules/.bin/mocha --bail test/*.js"
   },
   "keywords": [
     "rethinkdb",
