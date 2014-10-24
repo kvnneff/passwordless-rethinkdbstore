@@ -1,0 +1,28 @@
+{
+  "name": "passwordless-rethinkdbstore",
+  "version": "1.0.0",
+  "description": "RethinkDB TokenStore for Passwordless",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --bail test/*.js"
+  },
+  "keywords": [
+    "rethinkdb",
+    "passwordless",
+    "token",
+    "otpw",
+    "store",
+    "tokenstore"
+  ],
+  "author": "River Grimm <river.grimm@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^0.8.0",
+    "passwordless-tokenstore": "0.0.10",
+    "rethinkdb": "^1.15.0-0"
+  },
+  "devDependencies": {
+    "mocha": "^2.0.0",
+    "passwordless-tokenstore-test": "^0.1.0"
+  }
+}
