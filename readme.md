@@ -16,7 +16,7 @@ Afterwards, follow the guide for [Passwordless](https://github.com/florianheinem
 var passwordless = require('passwordless');
 var RethinkDBStore = require('passwordless-rethinkdbstore');
 
-passwordless.init(new RethinkDB({host: '127.0.0.1', port: 28015, db: 'main'}));
+passwordless.init(new RethinkDBStore({host: '127.0.0.1', port: 28015, db: 'main'}));
 
 passwordless.addDelivery(
     function(tokenToSend, uidToSend, recipient, callback) {
