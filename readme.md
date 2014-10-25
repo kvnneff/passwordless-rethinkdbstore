@@ -32,10 +32,10 @@ app.use(passwordless.acceptToken());
 ```javascript
 new RethinkDBStore([options]);
 ```
-* **[options]:** *(Object)* Optional. This can include options of the node.js RethinkDB client as described in the [docs](http://www.rethinkdb.com/api/javascript/#connect) and the ones described below combined in one object as shown in the example
+* **[options]:** *(Object)* Optional. This can include options of the node.js RethinkDB client as described in the [docs](http://www.rethinkdb.com/api/javascript/#connect).
 
 ## Hash and salt
-As the tokens are equivalent to passwords (even though only for a limited time) they have to be protected in the same way. passwordless-redisstore uses [bcrypt](https://github.com/ncb000gt/node.bcrypt.js/) with automatically created random salts. To generate the salt 10 rounds are used.
+As the tokens are equivalent to passwords (even though only for a limited time) they have to be protected in the same way. passwordless-rethinkdbstore uses [bcrypt](https://github.com/ncb000gt/node.bcrypt.js/) with automatically created random salts. To generate the salt 10 rounds are used.
 
 ## Tests
 
