@@ -3,6 +3,8 @@ var RethinkDBStore = require('../');
 var r = require('rethinkdb');
 var TokenStore = require('passwordless-tokenstore');
 var standardTests = require('passwordless-tokenstore-test');
+var expect = require('chai').expect;
+var uuid = require('node-uuid');
 var TokenStoreFactory;
 var connection;
 
@@ -29,3 +31,26 @@ TokenStoreFactory = function TokenStoreFactory() {
 };
 
 standardTests(TokenStoreFactory, beforeEachTest, afterEachTest);
+
+describe('RethinkDB Specific Tests', function() {
+    beforeEach(function(done) {
+        beforeEachTest(done);
+    })
+
+    afterEach(function(done) {
+        afterEachTest(done);
+    })
+    
+    it('should gracefully handle undefined originUrl values', function (done) {
+        var store = TokenStoreFactory();
+        var uid = "example@example.org";
+        var token = uuid.v4();
+        var ttl = 1000*60;
+        var origin;
+        
+        store.storeOrUpdate(token, uid, 1000*60, origin, function() {
+							expect(arguments.length).to.equal(0);
+              done();
+        });
+    });
+})

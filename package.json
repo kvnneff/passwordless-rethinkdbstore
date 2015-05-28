@@ -1,6 +1,6 @@
 {
   "name": "passwordless-rethinkdbstore",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "RethinkDB TokenStore for Passwordless",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,9 @@
     "rethinkdb": "^1.15.0-0"
   },
   "devDependencies": {
+    "chai": "^2.3.0",
     "mocha": "^2.0.0",
+    "node-uuid": "^1.4.3",
     "passwordless-tokenstore-test": "^0.1.0"
   }
 }
