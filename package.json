@@ -2,6 +2,7 @@
   "name": "passwordless-rethinkdbstore",
   "version": "1.0.0",
   "description": "RethinkDB TokenStore for Passwordless",
+  "repository": "https://github.com/staygrimm/passwordless-rethinkdbstore/",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --bail test/*.js"
