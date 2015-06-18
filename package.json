@@ -1,6 +1,6 @@
 {
   "name": "passwordless-rethinkdbstore",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "RethinkDB TokenStore for Passwordless",
   "repository": "https://github.com/staygrimm/passwordless-rethinkdbstore/",
   "main": "index.js",
