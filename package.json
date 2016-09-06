@@ -23,6 +23,7 @@
     "rethinkdb": "2.3.3"
   },
   "devDependencies": {
+    "argon2": "^0.14.0",
     "chai": "^2.3.0",
     "mocha": "^2.0.0",
     "node-uuid": "^1.4.3",
