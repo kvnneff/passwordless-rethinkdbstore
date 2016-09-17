@@ -15,17 +15,17 @@
     "store",
     "tokenstore"
   ],
-  "author": "River Grimm <river.grimm@gmail.com>",
+  "author": "Kevin Neff <kvnneff@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^0.8.0",
+    "bcrypt": "0.8.7",
     "passwordless-tokenstore": "0.0.10",
-    "rethinkdb": "^1.15.0-0"
+    "rethinkdb": "2.3.3"
   },
   "devDependencies": {
     "chai": "^2.3.0",
     "mocha": "^2.0.0",
     "node-uuid": "^1.4.3",
-    "passwordless-tokenstore-test": "^0.1.0"
+    "passwordless-tokenstore-test": "^0.1.4"
   }
 }
