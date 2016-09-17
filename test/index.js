@@ -16,8 +16,15 @@ var options = {
 
 var beforeEachTest = function (done) {
     r.connect(options, function (err, connection) {
-        r.table('pwdless').delete().run(connection, function (err) {
-            done(err);
+        r.db('test').tableList().run(connection, function(err, res) {
+            if (res.indexOf('pwdless') == -1) {
+                r.db('test').tableCreate('pwdless').run(connection, function (err) {
+                    return done(err);
+                });
+            }
+            else {
+                return done(err);
+            }
         });
     });
 };
