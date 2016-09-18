@@ -5,7 +5,9 @@ var TokenStore = require('passwordless-tokenstore');
 var standardTests = require('passwordless-tokenstore-test');
 var expect = require('chai').expect;
 var uuid = require('node-uuid');
+var argon2 = require('argon2');
 var TokenStoreFactory;
+var TokenStoreFactoryCustomHashLib;
 var connection;
 
 var options = {
@@ -37,6 +39,10 @@ TokenStoreFactory = function TokenStoreFactory() {
     return new RethinkDBStore(options);
 };
 
+TokenStoreFactoryCustomHashLib = function TokenStoreFactoryCustomHashLib(hashAndVerifyFn) {
+    return new RethinkDBStore(options, hashAndVerifyFn);
+}
+
 standardTests(TokenStoreFactory, beforeEachTest, afterEachTest);
 
 describe('RethinkDB Specific Tests', function() {
@@ -47,17 +53,61 @@ describe('RethinkDB Specific Tests', function() {
     afterEach(function(done) {
         afterEachTest(done);
     })
-    
-    it('should gracefully handle undefined originUrl values', function (done) {
-        var store = TokenStoreFactory();
+
+    var handleUndefinedOrigin = function (tokenStoreFactory, done) {
+        var store = tokenStoreFactory();
         var uid = "example@example.org";
         var token = uuid.v4();
         var ttl = 1000*60;
         var origin;
-        
+
         store.storeOrUpdate(token, uid, 1000*60, origin, function() {
 							expect(arguments.length).to.equal(0);
               done();
+        });
+    }
+
+    it('should gracefully handle undefined originUrl values', function (done) {
+        handleUndefinedOrigin(TokenStoreFactory, done);
+    });
+
+    /*
+    * This runs all the tests with a custom hashing library.
+    */
+    describe('RethinkDB specific tests with custom hashing library', function() {
+        var initStore = function() {
+            // store must be a function with no args; thats why we bind to the first arg
+            return TokenStoreFactoryCustomHashLib.bind(null, {
+                hash: function(token, cb) {
+                    argon2.generateSalt()
+                        .then(function(salt) {
+                            argon2.hash(token, salt)
+                            .then(cb.bind(null, null)) // signature for then-cb is (err, hashedToken)
+                            .catch(cb);
+                        });
+                },
+                verify: function(token, hashedToken, cb) {
+                    argon2.verify(hashedToken, token)
+                        .then(function(match) {
+                            if (match) {
+                                return cb(null, match);
+                            }
+                            else {
+                                return cb();
+                            }
+                        })
+                        .catch(cb);
+                }
+            });
+        };
+
+        it('should work with custom hashing library', function() {
+            var store = initStore();
+            standardTests(store, beforeEachTest, afterEachTest);
+        });
+
+        it('should gracefully handle undefined originUrl values', function (done) {
+            handleUndefinedOrigin(initStore(), done);
         });
     });
 })
